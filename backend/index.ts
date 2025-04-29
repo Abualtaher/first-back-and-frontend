@@ -9,3 +9,16 @@ const PORT = 3001;
 app.use(cors());
 app.use(express.json());
 app.use("/tasks", taskRoutes);
+
+const start = async () => {
+  try {
+    await sequelize.sync();
+    app.listen(PORT, () => {
+      console.log(`Server is upp and running on:${PORT}`);
+    });
+  } catch (error) {
+    console.log("Cannot connect with database", error);
+  }
+};
+
+start();
